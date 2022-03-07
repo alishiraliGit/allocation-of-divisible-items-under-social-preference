@@ -69,6 +69,8 @@ if __name__ == '__main__':
 
             pref_ = LinearFehrSchmidt(a_mat_, alpha_, beta_, utilities_pa_[i_rept_, :, ia_idx_])
             valuations_pa_[i_rept_, :, ia_idx_] = pref_.v(x_pa_mat_)
+
+            pref_ = LinearFehrSchmidt(a_mat_, alpha_, beta_, utilities_pf_[i_rept_, :, ia_idx_])
             valuations_pf_[i_rept_, :, ia_idx_] = pref_.v(x_star_mat_)
 
         # Find corr coefficient
@@ -121,5 +123,5 @@ if __name__ == '__main__':
     plt.ylabel('money burned')
     plt.tight_layout()
 
-    if do_save_:
+    if do_save_ is False:
         plt.savefig(os.path.join(save_path_, 'money_burned_vs_corrcoef_for_random_bidders.pdf'))

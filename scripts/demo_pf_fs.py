@@ -10,12 +10,12 @@ if __name__ == '__main__':
     ])
 
     alpha_ = np.array([
-        0.,
+        0.2,
         0.
     ])
 
     beta_ = np.array([
-        0.,
+        0.2,
         0.
     ])
 
