@@ -15,7 +15,7 @@ if __name__ == '__main__':
     n_item_ = 3
 
     n_rept_ = 10
-    do_save_ = False
+    do_save_ = True
 
     # Allocation mech.
     b_ = np.array([
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     r_ = np.zeros((n_rept_,))
 
     for i_rept_ in tqdm(range(n_rept_)):
-        a_mat_ = rng.random((n_bid_, n_item_))
+        a_mat_ = a_mats_[i_rept_]
 
         # Loop over IAs
         for ia_idx_ in range(n_ia_):
@@ -86,6 +86,7 @@ if __name__ == '__main__':
     if do_save_:
         plt.savefig(os.path.join(save_path_, 'approx_factor_vs_alpha_for_random_bidders.pdf'))
 
+    #######################
     plt.figure(figsize=(4, 4))
     plt.plot(alphas_[0], money_burnings_.T, 'k', alpha=0.4)
     plt.xlabel(r'$\alpha$')
@@ -95,6 +96,7 @@ if __name__ == '__main__':
     if do_save_:
         plt.savefig(os.path.join(save_path_, 'money_burned_vs_alpha_for_random_bidders.pdf'))
 
+    #######################
     plt.figure(figsize=(8, 4))
 
     plt.subplot(1, 2, 1)
@@ -116,6 +118,7 @@ if __name__ == '__main__':
     if do_save_:
         plt.savefig(os.path.join(save_path_, 'u_v_for_random_bidders.pdf'))
 
+    #######################
     plt.figure(figsize=(4, 4))
     plt.plot(r_, money_burnings_[:, 0], 'ro', alpha=0.4)
     plt.plot(r_, money_burnings_[:, -1], 'bo', alpha=0.4)
@@ -123,5 +126,61 @@ if __name__ == '__main__':
     plt.ylabel('money burned')
     plt.tight_layout()
 
-    if do_save_ is False:
+    if do_save_:
         plt.savefig(os.path.join(save_path_, 'money_burned_vs_corrcoef_for_random_bidders.pdf'))
+
+    #######################
+    plt.figure(figsize=(6, 6))
+
+    plt.subplot(2, 2, 1)
+    for i_rept_ in range(n_rept_):
+        max_b_ = np.argmax(utilities_pf_[i_rept_, :, 0])
+
+        # plt.plot(alphas_[0], (valuations_pf_[i_rept_, max_b_, :] - valuations_pf_[i_rept_, max_b_, 0]).T, 'b',
+        #         alpha=0.4)
+        plt.plot(alphas_[0], (utilities_pf_[i_rept_, max_b_, :] - utilities_pf_[i_rept_, max_b_, 0]).T, 'b--',
+                 alpha=0.4)
+
+    plt.title(r'$u^{PF}(\alpha) - u^{PF}(0)$ (advantaged)')
+    plt.xlabel(r'$\alpha$')
+
+    plt.subplot(2, 2, 3)
+    for i_rept_ in range(n_rept_):
+        min_b_ = np.argmin(utilities_pf_[i_rept_, :, 0])
+
+        # plt.plot(alphas_[0], (valuations_pf_[i_rept_, min_b_, :] - valuations_pf_[i_rept_, min_b_, 0]).T, 'r',
+        #         alpha=0.4)
+        plt.plot(alphas_[0], (utilities_pf_[i_rept_, min_b_, :] - utilities_pf_[i_rept_, min_b_, 0]).T, 'r--',
+                 alpha=0.4)
+
+    plt.title(r'$u^{PF}(\alpha) - u^{PF}(0)$ (disadvantaged)')
+    plt.xlabel(r'$\alpha$')
+
+    plt.subplot(2, 2, 2)
+    for i_rept_ in range(n_rept_):
+        max_b_ = np.argmax(utilities_pa_[i_rept_, :, 0])
+
+        # plt.plot(alphas_[0], (valuations_pa_[i_rept_, max_b_, :] - valuations_pa_[i_rept_, max_b_, 0]).T, 'b',
+        #         alpha=0.4)
+        plt.plot(alphas_[0], (utilities_pa_[i_rept_, max_b_, :] - utilities_pa_[i_rept_, max_b_, 0]).T, 'b--',
+                 alpha=0.4)
+
+    plt.title(r'$u^{PA}(\alpha) - u^{PA}(0)$ (advantaged)')
+    plt.xlabel(r'$\alpha$')
+
+    plt.subplot(2, 2, 4)
+    for i_rept_ in range(n_rept_):
+        min_b_ = np.argmin(utilities_pa_[i_rept_, :, 0])
+
+        # plt.plot(alphas_[0], (valuations_pa_[i_rept_, min_b_, :] - valuations_pa_[i_rept_, min_b_, 0]).T, 'r',
+        #         alpha=0.4)
+        plt.plot(alphas_[0], (utilities_pa_[i_rept_, min_b_, :] - utilities_pa_[i_rept_, min_b_, 0]).T, 'r--',
+                 alpha=0.4)
+
+    plt.title(r'$u^{PA}(\alpha) - u^{PA}(0)$ (disadvantaged)')
+    plt.xlabel(r'$\alpha$')
+
+    plt.tight_layout()
+
+    if do_save_:
+        plt.savefig(os.path.join(save_path_, 'u_minus_u_0_for_random_bidders.pdf'))

@@ -10,12 +10,12 @@ if __name__ == '__main__':
     ])
 
     alpha_ = np.array([
-        0.2,
+        0.1,
         0.
     ])
 
     beta_ = np.array([
-        0.2,
+        0.1,
         0.
     ])
 
@@ -32,14 +32,16 @@ if __name__ == '__main__':
     # PF
     success_, x_opt_, loss_opt_ = pf_.allocate(verbose=-1)
 
-    print('PF:')
-    print(success_)
+    print('======= PF =======')
+    print('Optimization was successful: %s' % success_)
+    print('x:')
     print(np.round(x_opt_, decimals=3))
-    print(loss_opt_)
 
     # PA
     f_, x_sub_opt_ = pa_.allocate()
 
-    print('PA:')
+    print('\n======= PA =======')
+    print('f:')
     print(f_)
+    print('x:')
     print(np.round(x_sub_opt_, decimals=3))

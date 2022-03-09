@@ -13,8 +13,8 @@ if __name__ == '__main__':
 
     # ----- Choose FS params -----
     a_mat_ = np.array([
-        [0.33, 0.79, 0.30],
-        [0.45, 0.13, 0.40]
+        [1., 0., 2.],
+        [0., 1., 1.]
     ])
 
     b_ = np.array([
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     n_bid_ = a_mat_.shape[0]
 
     # ----- Allocate for different levels if IA -----
-    alphas_ = np.tile(np.arange(0, 0.05, 5e-3).reshape((1, -1)), reps=(n_bid_, 1))
+    alphas_ = np.tile(np.arange(0, 0.5, 5e-3).reshape((1, -1)), reps=(n_bid_, 1))
     betas_ = alphas_
 
     n_test_ = alphas_.shape[1]
